@@ -92,7 +92,7 @@ open class ButtonBarView: UICollectionView {
             toFrame = layoutAttributesForItem(at: IndexPath(item: toIndex, section: 0))!.frame
         }
       
-        if selectedBarWidthGroup.count > 1 {
+        if selectedBarWidthGroup.count > 1 && toIndex >= 0 && toIndex < selectedBarWidthGroup.count - 1 {
             var barWidth = selectedBarWidthGroup[fromIndex]
             fromFrame = CGRect(x: fromFrame.origin.x + (fromFrame.size.width - barWidth) / 2, y: fromFrame.origin.y, width: barWidth, height: fromFrame.size.height)
             barWidth = selectedBarWidthGroup[toIndex]
@@ -128,7 +128,7 @@ open class ButtonBarView: UICollectionView {
         updateContentOffset(animated: animated, pagerScroll: pagerScroll, toFrame: selectedCellFrame, toIndex: (selectedCellIndexPath as NSIndexPath).row)
       
         let barWidth: CGFloat
-        if selectedBarWidthGroup.count >= selectedIndex {
+        if selectedIndex >= 0 && selectedIndex < selectedBarWidthGroup.count - 1 {
             barWidth = selectedBarWidthGroup[selectedIndex]
         } else {
             barWidth = selectedCellFrame.size.width
