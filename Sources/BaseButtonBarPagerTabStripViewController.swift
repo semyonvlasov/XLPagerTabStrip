@@ -55,7 +55,12 @@ open class BaseButtonBarPagerTabStripViewController<ButtonBarCellType : UICollec
         buttonBarView = buttonBarView ?? {
             let flowLayout = UICollectionViewFlowLayout()
             flowLayout.scrollDirection = .horizontal
-            flowLayout.sectionInset = UIEdgeInsetsMake(0, settings.style.buttonBarLeftContentInset ?? 35, 0, settings.style.buttonBarRightContentInset ?? 35)
+            flowLayout.sectionInset = UIEdgeInsets(
+                top: 0,
+                left: settings.style.buttonBarLeftContentInset ?? 35,
+                bottom: 0,
+                right: settings.style.buttonBarRightContentInset ?? 35
+            )
             let buttonBarHeight = settings.style.buttonBarHeight ?? 44
             let buttonBar = ButtonBarView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: buttonBarHeight), collectionViewLayout: flowLayout)
             buttonBar.backgroundColor = .orange
@@ -82,7 +87,12 @@ open class BaseButtonBarPagerTabStripViewController<ButtonBarCellType : UICollec
         flowLayout.minimumInteritemSpacing = settings.style.buttonBarMinimumLineSpacing ?? flowLayout.minimumLineSpacing
         flowLayout.minimumLineSpacing = settings.style.buttonBarMinimumLineSpacing ?? flowLayout.minimumLineSpacing
         let sectionInset = flowLayout.sectionInset
-        flowLayout.sectionInset = UIEdgeInsetsMake(sectionInset.top, settings.style.buttonBarLeftContentInset ?? sectionInset.left, sectionInset.bottom, settings.style.buttonBarRightContentInset ?? sectionInset.right)
+        flowLayout.sectionInset = UIEdgeInsets(
+            top: sectionInset.top,
+            left: settings.style.buttonBarLeftContentInset ?? sectionInset.left,
+            bottom: sectionInset.bottom,
+            right: settings.style.buttonBarRightContentInset ?? sectionInset.right
+        )
         buttonBarView.showsHorizontalScrollIndicator = false
         buttonBarView.backgroundColor = settings.style.buttonBarBackgroundColor ?? buttonBarView.backgroundColor
         buttonBarView.selectedBar.backgroundColor = settings.style.selectedBarBackgroundColor
