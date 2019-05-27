@@ -216,27 +216,27 @@ open class PagerTabStripViewController: UIViewController, UIScrollViewDelegate {
         
         for (index, childController) in pagerViewControllers.enumerated() {
             let pageOffsetForChild = self.pageOffsetForChild(at: index)
-            if fabs(containerView.contentOffset.x - pageOffsetForChild) < containerView.bounds.width {
+            if abs(containerView.contentOffset.x - pageOffsetForChild) < containerView.bounds.width {
                 if let _ = childController.parent {
                     childController.view.frame = CGRect(x: offsetForChild(at: index), y: 0, width: view.bounds.width, height: containerView.bounds.height)
                     childController.view.autoresizingMask = [.flexibleHeight, .flexibleWidth]
                 }
                 else {
-                    addChildViewController(childController)
+                    addChild(childController)
                     childController.beginAppearanceTransition(true, animated: false)
                     childController.view.frame = CGRect(x: offsetForChild(at: index), y: 0, width: view.bounds.width, height: containerView.bounds.height)
                     childController.view.autoresizingMask = [.flexibleHeight, .flexibleWidth]
                     containerView.addSubview(childController.view)
-                    childController.didMove(toParentViewController: self)
+                    childController.didMove(toParent: self)
                     childController.endAppearanceTransition()
                 }
             }
             else {
                 if let _ = childController.parent {
-                    childController.willMove(toParentViewController: nil)
+                    childController.willMove(toParent: nil)
                     childController.beginAppearanceTransition(false, animated: false)
                     childController.view.removeFromSuperview()
-                    childController.removeFromParentViewController()
+                    childController.removeFromParent()
                     childController.endAppearanceTransition()
                 }
             }
@@ -263,8 +263,8 @@ open class PagerTabStripViewController: UIViewController, UIScrollViewDelegate {
         for childController in viewControllers {
             if let _ = childController.parent {
                 childController.view.removeFromSuperview()
-                childController.willMove(toParentViewController: nil)
-                childController.removeFromParentViewController()
+                childController.willMove(toParent: nil)
+                childController.removeFromParent()
             }
         }
         reloadViewControllers()
